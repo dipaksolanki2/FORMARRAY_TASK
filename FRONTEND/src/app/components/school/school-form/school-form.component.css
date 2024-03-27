@@ -1,0 +1,178 @@
+.container {
+    margin: 20px auto;
+    max-width: 700px;
+  }
+  
+  .form-container {
+    border: 2px solid blue;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .student-container {
+    margin-bottom: 20px;
+  }
+  
+  .student-form {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .exam-container {
+    border: 2px solid black;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .exam-form {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .subject-container {
+    border: 2px solid rgb(152, 11, 11);
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
+  
+  .subject-form {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    font-weight: bold;
+    display: block;
+  }
+  
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-primary {
+    background-color: #FFFFFF;
+    font-weight: 500;
+    color: black;
+  }
+  
+  .btn-primary:hover {
+    background-color: #e9e9e9;
+  }
+  
+  .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+  
+  .btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .btn-danger:hover {
+    background-color: #c82333;
+  }
+  
+  .btn-warning {
+    background-color: #ffc107;
+    color: #212529;
+  }
+  
+  .btn-warning:hover {
+    background-color: #e0a800;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .btn-success:hover {
+    background-color: #218838;
+  }
+  
+  .fetch-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .container-box {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    .card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .card h3 {
+      margin-bottom: 10px;
+      color: #333;
+    }
+    
+    .card-content {
+      margin-bottom: 10px;
+    }
+    
+    .card-content p {
+      margin: 5px 0;
+    }
+    
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    
+    .card-actions button {
+      padding: 5px 10px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      background-color: #dc3545;
+      color: #fff;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .card-actions button:hover {
+      background-color: #c82333;
+    }
+    

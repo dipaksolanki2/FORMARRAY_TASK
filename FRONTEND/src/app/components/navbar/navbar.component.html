@@ -1,0 +1,25 @@
+<nav class="navbar navbar-light bg-light" style="padding: 10px; padding-inline: 20vw;">
+    <a class="navbar-brand" routerLink="/school"
+         style="border-radius: 5px; font-weight: 500; background-color: rgb(171, 180, 188); padding-left: 15px; padding-right: 15px;">  
+         Form
+    </a>
+        <div class="side" style="display: flex; align-items: flex-end;">
+            <button class="btn btn-outline-success my-2 my-sm-0"  
+            *ngIf="!isLoggedIn; else loggedInTemplate"
+            routerLink="/login" 
+            routerLinkActive="active"
+        >
+            LOGIN
+        </button>&nbsp;
+        <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/signup" routerLinkActive="active">SIGN UP</button>
+
+        <ng-template #loggedInTemplate>
+            <div class="logout-container">
+              <button 
+              class="btn btn-outline-success my-2 my-sm-0" 
+              (click)="logout()">LOG OUT</button>
+            </div>
+        </ng-template>
+
+        </div>
+</nav>

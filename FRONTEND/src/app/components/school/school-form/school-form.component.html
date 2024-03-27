@@ -1,0 +1,96 @@
+<div class="container" style="text-align: center;">
+    <h2>School Form Task</h2>
+  </div>
+  
+  <div class="container form-container" style="background-color: rgba(154, 225, 152, 0.707);">
+    <form [formGroup]="schoolForm" (ngSubmit)="onSubmit()">
+  
+      <div formArrayName="students" class="student-container" *ngFor="let student of students().controls; let studentIndex=index">
+        <div [formGroupName]="studentIndex" class="student-form">
+          <h3>Student {{ studentIndex + 1 }}</h3>
+          <div class="form-group">
+            <label for="studentName">Student Name:</label>
+            <input type="text" formControlName="studentName" id="studentName" />
+          </div>
+          <div class="form-group">
+            <label for="rollNo">Roll No:</label>
+            <input type="text" formControlName="rollNo" id="rollNo" />
+          </div>
+          <div class="form-group">
+            <label for="standard">Standard:</label>
+            <input type="text" formControlName="Standard" id="standard" />
+          </div>
+  
+          <!-- Exams Array -->
+          <div formArrayName="exams" class="exam-container" *ngFor="let exam of exams(studentIndex).controls; let examIndex=index">
+            <div [formGroupName]="examIndex" class="exam-form">
+              <h4>Exam {{ examIndex + 1 }}</h4>
+              <div class="form-group">
+                <label for="examType">Exam Type:</label>
+                <input type="text" formControlName="examType" id="examType" />
+              </div>
+  
+              <!-- Subject Array -->
+              <div formArrayName="subjects" class="subject-container" *ngFor="let subject of subjects(studentIndex, examIndex).controls; let subjectIndex=index">
+                <div [formGroupName]="subjectIndex" class="subject-form">
+                  <label for="subjectName">Subject Name:</label>
+                  <input type="text" formControlName="subjectName" id="subjectName" style="margin-bottom: 10px;"/>
+                  <button type="button" (click)="removeSubject(studentIndex, examIndex, subjectIndex)" class="btn btn-danger">Remove Subject</button>&nbsp;
+                  <button type="button" (click)="addSubject(studentIndex, examIndex)" class="btn btn-success">Add Subject</button>
+                </div>
+              </div>
+              <button type="button" (click)="removeExam(studentIndex, examIndex)" class="btn btn-danger">Remove Exam</button>&nbsp;
+              <button type="button" (click)="addExam(studentIndex)" class="btn btn-warning">Add Exam</button>&nbsp;
+            </div>
+          </div>
+        </div>
+        <button type="button" (click)="removeStudent(studentIndex)" class="btn btn-danger">Remove Student</button>&nbsp;
+      </div>
+      <button type="button" (click)="addStudent()" class="btn btn-secondary">Add Student</button>
+      <hr>
+      <button [disabled]="schoolForm.invalid || schoolForm.untouched" class="btn btn-primary" type="submit">Submit Form</button>
+    </form>
+  </div>
+  
+  
+  <hr>
+  
+  
+  <div class="fetch-container">
+    <button class="btn btn-success" type="button" (click)="fetchStudents()">Fetch Students</button>
+  </div>
+  
+  <div class="container-box">
+    <div *ngFor="let student of studentsData; let i=index" class="card" >
+      <h3>Student Data - {{i+1}}</h3>
+      <div class="card-content">
+        <p><strong>Name:</strong> {{student.studentName}}</p>
+        <p><strong>Roll No:</strong> {{student.rollNo}}</p>
+        <p><strong>Standard:</strong> {{student.Standard}}</p>
+        <p><strong>Exams:</strong></p>
+        <ul>
+          <li *ngFor="let exam of student.exams;">
+            {{ exam.examType.length > 0 ? 'Exam Type: ' + exam.examType : 'No Exams'}}
+            <ul>
+              <li *ngFor="let subject of exam.subjects">
+                {{ subject.subjectName.length > 0 ? 'Subject Name: ' + subject.subjectName : 'No Subject'}}
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <p><strong>Student ID: {{ student._id }} </strong></p>
+        <p><i>School ID: {{ student.new_id }} </i></p>
+      </div>
+      <div class="card-actions">
+        <button (click)="editStudent(student)">Edit Student</button>
+        <button *ngIf="isEditMode && i === editedStudentIndex && toggleUpdateBtn" (click)="updateStudentData(student)">Update Student</button>
+        <button (click)="deleteStudent(student._id)">Delete Student</button>
+        <button (click)="deleteAll(student.new_id)" title="Delete all students of same School ID">Delete All Students</button>
+  
+      </div>
+    </div>
+  </div>
+
+
+  
+  
