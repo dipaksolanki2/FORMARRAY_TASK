@@ -19,10 +19,14 @@
         </div>
         <div class="form-group">
           <label for="password">Password:</label>
-          <input type="password" id="password" formControlName="password" placeholder="Enter your password">
+          <input [type]="hide ? 'password': 'text'" id="password" formControlName="password" placeholder="Enter your password">
           <div *ngIf="signupForm.get('password').invalid && signupForm.get('password').touched">
             <span *ngIf="signupForm.get('password').errors['required']">Password is required.</span>
             <span *ngIf="signupForm.get('password').errors['minlength']">Password must be at least 6 characters long.</span>
+          </div>
+          <div class="checkbox">
+            <input type="checkbox" id="showPassword" (change)="togglePasswordVisibility()">
+            <label for="showPassword">Show Password</label>
           </div>
         </div>
         <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>

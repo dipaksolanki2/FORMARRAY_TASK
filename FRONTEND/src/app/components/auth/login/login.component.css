@@ -44,4 +44,31 @@
   button:hover {
     background-color: #0056b3;
   }
+
+  .forget-password {
+    display: block;
+    text-align: right;
+    margin-top: 5px;
+  }
   
+  .forget-password a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .forget-password a:hover {
+    text-decoration: underline;
+  }
+
+  .checkbox {
+    margin-top: 5px;
+    display: flex;
+    gap: 5px;
+  }
+
+
+  .checkbox input[type="checkbox"] {
+    margin-bottom: 5px;
+    width: 16px;
+  }
+

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, Validators } from '@angular/forms';
 import { SchoolService } from '../../shared/services/school.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-school-form',
@@ -10,7 +11,7 @@ import { SchoolService } from '../../shared/services/school.service';
 export class SchoolFormComponent {
   schoolForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private schoolService: SchoolService) {}
+  constructor(private fb: FormBuilder, private schoolService: SchoolService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     // this.fetchStudents();
@@ -89,20 +90,32 @@ export class SchoolFormComponent {
     this.schoolService.saveStudents(this.schoolForm.value).subscribe(
       (response) => {
         console.log('Form data saved successfully:', response);
+        this.snackBar.open('Form data saved successfully', 'close', {
+          horizontalPosition: "center",
+          verticalPosition: "top",
+          duration: 3000,
+        });
         this.schoolForm.reset();
       },
       (error) => {
         console.error('Error saving form data:', error);
+          this.snackBar.open('Error saving form data', "close", {
+            horizontalPosition: "center",
+            verticalPosition: "top",
+            duration: 3000,
+          });
       }
     );
   }
 
-  isFetchClicked: boolean = false;
+  isLoading = false
+  // isFetchClicked: boolean = false;
   studentsData: any[] = [];
   fetchStudents() {
+ 
     this.schoolService.getStudents().subscribe(async (students) => {
       // console.log(students);
-
+      this.isLoading = true
       this.studentsData = []; // Clear existing data before adding fetched data
       students.forEach((el) => {
 
@@ -115,20 +128,35 @@ export class SchoolFormComponent {
 
         });
       });
+      setTimeout(() => {
+        this.isLoading = false
+      });
     });
-    this.isFetchClicked = true;
+    // this.isFetchClicked = true;
+
   }
 
   deleteStudent(studentId: any) {
     this.schoolService.deleteStudentonly(studentId).subscribe(
       (response) => {
-        console.log('Student deleted successfully:', response);
+        // console.log('Student deleted successfully:', response);
+        this.snackBar.open('Student deleted successfully', "close", {
+          horizontalPosition: "center",
+          verticalPosition: "top",
+          duration: 3000,
+        });
+
         this.studentsData = this.studentsData.filter(
           (student) => student._id !== studentId
         );
       },
       (error) => {
-        console.error('Error deleting student:', error);
+        // console.error('Error deleting student:', error);
+        this.snackBar.open('Error deleting student', "close", {
+          horizontalPosition: "center",
+          verticalPosition: "top",
+          duration: 3000
+        });
       }
     );
     // location.reload();
@@ -138,12 +166,21 @@ export class SchoolFormComponent {
     this.schoolService.deleteStudent(id).subscribe(
       (response) => {
         console.log('Student of same SchoolID deleted successfully:', response);
+        this.snackBar.open('Student of same SchoolID deleted successfully', "close", {
+          horizontalPosition: "center",
+          verticalPosition: "top",
+        });
         this.studentsData = this.studentsData.filter(
           (student) => student.new_id !== id
         );
       },
       (error) => {
         console.error('Error deleting student:', error);
+        this.snackBar.open('Error deleting student', "close", {
+          horizontalPosition: "center",
+          verticalPosition: "top",
+          duration: 3000
+        });
       }
     );
     // location.reload();
@@ -202,10 +239,20 @@ export class SchoolFormComponent {
       .subscribe(
         (response) => {
           // console.log('Student data updated successfully:', response);
+          this.snackBar.open('Student data updated successfully', "close", {
+            horizontalPosition: "center",
+            verticalPosition: "top",
+            duration: 3000,
+          });
           this.fetchStudents(); // Fetch updated data after successful update
         },
         (error) => {
-          console.error('Error updating student data:', error);
+          // console.error('Error updating student data:', error);
+          this.snackBar.open('Error deleting student', "close", {
+            horizontalPosition: "center",
+            verticalPosition: "top",
+            duration: 3000
+          });
         }
       );
       this.schoolForm.reset()

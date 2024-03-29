@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, switchMap, throwError } from 'rxjs';
 
@@ -37,5 +37,11 @@ export class AuthService {
     
   }
 
- 
+  resetPassword(token: string, oldPassword: string, newPassword: string) {
+
+    const payload = { oldPassword, newPassword, token}
+
+    return this.http.post<any>(`${this.backendUrl}/changePassword`, payload);
+  }
+
 }

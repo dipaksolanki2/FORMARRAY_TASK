@@ -11,7 +11,9 @@
         >
             LOGIN
         </button>&nbsp;
-        <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/signup" routerLinkActive="active">SIGN UP</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" routerLink="/signup" routerLinkActive="active">SIGN UP</button>&nbsp;
+        
+        <button *ngIf="isLoggedIn" class="btn btn-outline-success my-2 my-sm-0" routerLink="/change-password" routerLinkActive="active">RESET PASSWORD</button>
 
         <ng-template #loggedInTemplate>
             <div class="logout-container">

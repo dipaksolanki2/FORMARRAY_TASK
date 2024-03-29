@@ -10,6 +10,7 @@ const AuthValidator = require("@validator/auth.validator");
 const UserModel = require("@models/user.model").schema;
 
 module.exports = {
+  
   signUp: {
     validate: AuthValidator.signUp,
     pre: [
@@ -104,13 +105,14 @@ module.exports = {
       return h.response(request.pre.loginUser).code(200);
     },
   },
+
   logout: {
     pre: [
       {
         assign: "logoutUser",
         method: async (request, h) => {
           try {
-            return h.response({ message: "User Logged out successfully!" })
+            return h.response({ message: "User Logged out successfully!" });
           } catch (err) {
             return h.response({ error: "Something went wrong!" }).code(401);
           }
@@ -121,4 +123,72 @@ module.exports = {
       return h.response(request.pre.logoutUser).code(200);
     },
   },
+
+  changePassword: {
+    // validate: AuthValidator.changePassword,
+    pre: [
+      {
+        assign: "changePasswordUser",
+        method: async (request, h) => {
+          try {
+            const { token, oldPassword, newPassword } = request.payload;
+
+            // Verify token
+            let decodedToken;
+            try {
+              decodedToken = jwt.verify(token, "dipak_solanki"); 
+            } catch (error) {
+              return h.response({ message: "Invalid token" }).code(400);
+            }
+
+            const userEmail = decodedToken.email;
+
+            const user = await UserModel.findOne({ email: userEmail });
+
+            if (!user) {
+              return h.response({ message: "User not found" }).code(404);
+            }
+
+            //same password
+            if(oldPassword == newPassword) {
+              return h
+               .response({ message: "New password cannot be same as old password" })
+               .code(400);
+            }
+
+            // Compare old password with hashed oldPassword stored in database
+            const passwordMatch = await bcrypt.compare(
+              oldPassword,
+              user.password
+            );
+
+            // console.log("PASSWORDMATHCINGGGGG", passwordMatch);
+
+            if (!passwordMatch) {
+              return h
+                .response({ message: "Old password is incorrect" })
+                .code(400);
+            }
+
+            // Hash new password
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+            // Update user's password
+            user.password = hashedPassword;
+            await user.save();
+
+            // Send success response
+            return { message: "Password reset successful" };
+          } catch (error) {
+            console.error(error);
+            return h.response({ message: "Internal server error" }).code(500);
+          }
+        },
+      },
+    ],
+    handler: async (request, h) => {
+      return h.response(request.pre.changePasswordUser).code(200);
+    },
+  },
+
 };

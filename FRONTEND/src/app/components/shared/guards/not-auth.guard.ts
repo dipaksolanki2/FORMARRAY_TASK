@@ -1,33 +1,29 @@
+import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-export const loginGuard: CanActivateFn = (route, state) => {
+export const notAuthGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService)
   const router = new Router(); 
   const isLoggedIn = authService.isLoggedIn();
 
-  const snackBar = inject(MatSnackBar)
+  const snackBar = inject(MatSnackBar) 
 
-  if(isLoggedIn){
+  if(!isLoggedIn){
     return true;
   } 
   
   else{
-    // console.log("User is not logged in")
+    // console.log("User is logged in")
     ;(function openSnackBar() {
-      snackBar.open('User is not logged in', 'close', {
+      snackBar.open('User is logged in', 'close', {
         horizontalPosition: 'center',
         verticalPosition: 'top',
       });
     })();
-    router.navigate(['/login'])
+
+    router.navigate(['/school']);
     return false;
   }
-  
 };
-
-
-
-

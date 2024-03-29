@@ -31,6 +31,15 @@ module.exports ={
                         pre: API.logout.pre,
                         handler: API.logout.handler
                     }
+                },
+                {
+                    method: 'POST',
+                    path: '/changePassword',
+                    config: {
+                        // validate: API.changePassword.validate,
+                        pre: API.changePassword.pre,
+                        handler: API.changePassword.handler
+                    }
                 }
             ])
         },

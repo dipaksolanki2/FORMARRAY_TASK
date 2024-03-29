@@ -59,6 +59,10 @@
   <div class="fetch-container">
     <button class="btn btn-success" type="button" (click)="fetchStudents()">Fetch Students</button>
   </div>
+
+  <div class="boxxx" style="display: flex; align-items: center; justify-content: center; margin-top: 8px; margin-bottom: 8px;">
+    <div *ngIf="isLoading" class="loader"></div> 
+  </div>
   
   <div class="container-box">
     <div *ngFor="let student of studentsData; let i=index" class="card" >
